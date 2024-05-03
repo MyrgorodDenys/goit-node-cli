@@ -39,15 +39,17 @@ async function removeContact(contactId) {
   }
 }
 
-async function addContact(data) {
+async function addContact(name, email, phone) {
   try {
-    const dataContacts = await listContacts();
     const newContact = {
       id: uuidv4(),
-      ...data,
+      name,
+      email,
+      phone,
     };
-    dataContacts.push(newContact);
-    await fs.writeFile(contactsPath, JSON.stringify(dataContacts, null, 2));
+    const allContacts = await listContacts();
+    allContacts.push(newContact);
+    await fs.writeFile(contactsPath, JSON.stringify(allContacts, null, 2));
     return newContact;
   } catch (error) {
     return null;

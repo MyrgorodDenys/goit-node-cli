@@ -2,36 +2,32 @@ const { program } = require("commander");
 const contacts = require("./contacts");
 
 program
-  .option("-a, --action [type]", "choose action: list | get | remove | add")
-  .option("-i, --id [type]", "contact id")
-  .option("-n, --name [type]", "contact name")
-  .option("-e, --email [type]", "contact email")
-  .option("-p, --phone [type]", "contact phone");
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
 
 program.parse();
+
 const options = program.opts();
 
-// TODO: рефакторити
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      const allContacts = await contacts.listContacts();
-      console.table(allContacts);
+      console.table(await contacts.listContacts());
       break;
 
     case "get":
-      const contactById = await contacts.getContactById(id);
-      console.table(contactById);
-      break;
-
-    case "add":
-      const contactAdd = await contacts.addContact({ name, email, phone });
-      console.table(contactAdd);
+      console.log(await contacts.getContactById(id));
       break;
 
     case "remove":
-      const contactDeleteById = await contacts.removeContact(id);
-      console.table(contactDeleteById);
+      console.log(await contacts.removeContact(id));
+      break;
+
+    case "add":
+      console.log(await contacts.addContact(name, email, phone));
       break;
 
     default:
