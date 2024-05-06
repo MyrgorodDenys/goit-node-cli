@@ -9,7 +9,7 @@
     "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Denys Myrgorod <dmyrte@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "commander": "^12.0.0",
